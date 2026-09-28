@@ -1,10 +1,10 @@
-# Omadroid
+# Andromarchy
 
 [Waydroid](https://waydro.id) in the Omarchy bar: start and stop Android, launch
 your Android apps, see what Android costs in memory and CPU, and find out why it
 misbehaves.
 
-![Omadroid panel](preview.png)
+![Andromarchy panel](preview.png)
 
 ## What it does
 
@@ -52,19 +52,19 @@ after a restart; the panel reminds you.
 ## Install
 
 ```bash
-omarchy plugin add https://github.com/dedeanth/omadroid.git --enable --yes
+omarchy plugin add https://github.com/dedeanth/andromarchy.git --enable --yes
 ```
 
-Omadroid lands in the right section of the bar.
+Andromarchy lands in the right section of the bar.
 
 ## Remove
 
 ```bash
-omarchy plugin disable io.github.dedeanth.omadroid
-omarchy plugin remove io.github.dedeanth.omadroid
+omarchy plugin disable io.github.dedeanth.andromarchy
+omarchy plugin remove io.github.dedeanth.andromarchy
 ```
 
-Omadroid changes nothing on its own. The Waydroid properties you set from the
+Andromarchy changes nothing on its own. The Waydroid properties you set from the
 panel stay in Waydroid; reset them with `waydroid prop set <key> ""`.
 
 ## Settings
@@ -83,18 +83,18 @@ through pkexec every time:
 - **Reinstall** (libhoudini) runs waydroid_script, which writes into the
   Waydroid images.
 
-Both live in `omadroid-root.sh`. Nothing runs as root without that prompt.
+Both live in `andromarchy-root.sh`. Nothing runs as root without that prompt.
 
 ## Files
 
-- `Omadroid.qml` — the widget and its panel
-- `omadroid.sh` — user-side backend; every command answers in one line of JSON
-- `omadroid-root.sh` — the two root actions, run through pkexec
+- `Andromarchy.qml` — the widget and its panel
+- `andromarchy.sh` — user-side backend; every command answers in one line of JSON
+- `andromarchy-root.sh` — the two root actions, run through pkexec
 
 ## IPC
 
 ```bash
-quickshell ipc -p /usr/share/omarchy/shell call omadroid toggle   # also open, close, start, stop, status
+quickshell ipc -p /usr/share/omarchy/shell call andromarchy toggle   # also open, close, start, stop, status
 ```
 
 ## License

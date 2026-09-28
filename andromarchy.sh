@@ -1,6 +1,6 @@
 #!/bin/bash
-# Backend for the Omadroid bar widget. Everything here runs as the user:
-# the few checks that need root live in omadroid-root.sh, behind pkexec.
+# Backend for the Andromarchy bar widget. Everything here runs as the user:
+# the few checks that need root live in andromarchy-root.sh, behind pkexec.
 set -u
 
 WAYDROID_LIB=/var/lib/waydroid

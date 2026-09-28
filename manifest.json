@@ -1,21 +1,21 @@
 {
   "schemaVersion": 1,
-  "id": "io.github.dedeanth.omadroid",
-  "name": "Omadroid",
+  "id": "io.github.dedeanth.andromarchy",
+  "name": "Andromarchy",
   "version": "1.0.0",
   "author": "Anthony (dedeanth)",
   "license": "MIT",
   "description": "Waydroid in the Omarchy bar: start and stop Android, launch apps, see its memory and CPU, and check binder, firewall, ARM translation and network",
-  "homepage": "https://github.com/dedeanth/omadroid",
-  "repository": "https://github.com/dedeanth/omadroid",
+  "homepage": "https://github.com/dedeanth/andromarchy",
+  "repository": "https://github.com/dedeanth/andromarchy",
   "kinds": [
     "bar-widget"
   ],
   "entryPoints": {
-    "barWidget": "Omadroid.qml"
+    "barWidget": "Andromarchy.qml"
   },
   "barWidget": {
-    "displayName": "Omadroid",
+    "displayName": "Andromarchy",
     "description": "Start, stop and troubleshoot Waydroid from the bar",
     "category": "System",
     "allowMultiple": false,

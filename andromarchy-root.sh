@@ -1,5 +1,5 @@
 #!/bin/bash
-# Root side of Omadroid, run through pkexec. It only does what a user cannot:
+# Root side of Andromarchy, run through pkexec. It only does what a user cannot:
 # look inside Android, and reinstall libhoudini into the Waydroid images.
 set -u
 

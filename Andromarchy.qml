@@ -7,13 +7,13 @@ import qs.Ui
 
 Panel {
   id: root
-  moduleName: "io.github.dedeanth.omadroid"
-  ipcTarget: "omadroid"
+  moduleName: "io.github.dedeanth.andromarchy"
+  ipcTarget: "andromarchy"
   manageIpc: false
 
   readonly property string home: Quickshell.env("HOME")
-  readonly property string backend: localPath("omadroid.sh")
-  readonly property string rootBackend: localPath("omadroid-root.sh")
+  readonly property string backend: localPath("andromarchy.sh")
+  readonly property string rootBackend: localPath("andromarchy-root.sh")
   readonly property string scriptDir: expandHome(String(setting("waydroidScriptDir", "~/.local/share/waydroid_script")))
   readonly property string readmePath: expandHome(String(setting("readmePath", "")))
 
@@ -23,7 +23,7 @@ Panel {
   readonly property string fontFamily: bar ? bar.fontFamily : Style.font.family
   readonly property string androidGlyph: "󰀲"
 
-  // Last answer of `omadroid.sh status`; see that script for the fields.
+  // Last answer of `andromarchy.sh status`; see that script for the fields.
   property var st: ({})
   property var apps: []
   property var props: ({ width: "", height: "", multiWindows: false, fakeTouch: [] })
