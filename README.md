@@ -40,7 +40,7 @@ after a restart; the panel reminds you.
 - Waydroid, initialised (`sudo waydroid init`), with binder available in the
   kernel.
 - `jq` (Omarchy ships it).
-- `pkexec` (polkit) for the two root actions.
+- `pkexec` (polkit) for the three root actions.
 - Optional, for **Reinstall** of libhoudini:
   [casualsnek/waydroid_script](https://github.com/casualsnek/waydroid_script)
   cloned with its virtual environment, by default in
@@ -79,20 +79,22 @@ panel stay in Waydroid; reset them with `waydroid prop set <key> ""`.
 
 ## Permissions
 
-Everything runs as your user except two actions, which ask for your password
+Everything runs as your user except three actions, which ask for your password
 through pkexec every time:
 
+- **Open** / **Container off**, only when the container has to change state,
+  run `systemctl start|stop waydroid-container.service`;
 - **Check** (network) runs `waydroid shell` to look inside Android;
 - **Reinstall** (libhoudini) runs waydroid_script, which writes into the
   Waydroid images.
 
-Both live in `andromarchy-root.sh`. Nothing runs as root without that prompt.
+All three live in `andromarchy-root.sh`. Nothing runs as root without that prompt.
 
 ## Files
 
 - `Andromarchy.qml` — the widget and its panel
 - `andromarchy.sh` — user-side backend; every command answers in one line of JSON
-- `andromarchy-root.sh` — the two root actions, run through pkexec
+- `andromarchy-root.sh` — the three root actions, run through pkexec
 
 ## IPC
 
