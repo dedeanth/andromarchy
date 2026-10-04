@@ -44,11 +44,13 @@ after a restart; the panel reminds you.
 - Optional, for **Reinstall** of libhoudini:
   [casualsnek/waydroid_script](https://github.com/casualsnek/waydroid_script)
   cloned with its virtual environment, by default in
-  `~/.local/share/waydroid_script`:
+  `~/.local/share/waydroid_script`, at the reviewed commit. **Reinstall** runs it
+  as root, so `andromarchy-root.sh` refuses any other commit:
 
   ```bash
   git clone https://github.com/casualsnek/waydroid_script ~/.local/share/waydroid_script
   cd ~/.local/share/waydroid_script
+  git checkout --detach 48dbfaf34a6ddbe78688c530f9ba1c26522aafb2
   python -m venv venv && venv/bin/pip install -r requirements.txt
   ```
 
