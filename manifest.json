@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "io.github.dedeanth.andromarchy",
   "name": "Andromarchy",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Anthony (dedeanth)",
   "license": "MIT",
   "description": "Waydroid in the Omarchy bar: start and stop Android, launch apps, see its memory and CPU, and check binder, firewall, ARM translation and network",

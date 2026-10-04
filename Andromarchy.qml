@@ -283,7 +283,7 @@ Panel {
       : root.running ? root.barForeground
       : Qt.darker(root.barForeground, 1.55)
     onPressed: function (buttonCode) {
-      if (buttonCode === Qt.RightButton) root.run(["show"], "Opening Android…")
+      if (buttonCode === Qt.RightButton) root.openAndroid()
       else root.toggle()
     }
   }

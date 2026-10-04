@@ -13,6 +13,9 @@ misbehaves.
   opens Android.
 - **Open / Stop / Restart**. Closing the Waydroid window leaves Android running
   in the background; **Stop** really shuts it down and gives the memory back.
+- **Container on demand**. `waydroid-container` can stay disabled at boot:
+  **Open** (and a right click on the icon) starts it first, through `pkexec`,
+  then Android. Once Android is stopped, **Container off** stops it again.
 - **Usage**: memory Android actually holds (not the image page cache), its CPU,
   and which of your apps are running.
 - **Health checks**:
