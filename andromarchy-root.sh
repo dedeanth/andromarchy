@@ -1,6 +1,7 @@
 #!/bin/bash
 # Root side of Andromarchy, run through pkexec. It only does what a user cannot:
-# look inside Android, and reinstall libhoudini into the Waydroid images.
+# start or stop the Waydroid container, look inside Android, and reinstall
+# libhoudini into the Waydroid images.
 set -u
 
 netcheck() {
@@ -23,8 +24,18 @@ houdini() {
   cd "$dir" && "$dir/venv/bin/python" -W ignore main.py -a "$version" install libhoudini
 }
 
+# The container can be left disabled at boot (its binder module can spin kswapd),
+# so the widget starts it on demand and can stop it once Android is shut down.
+container() {
+  case "$1" in
+    start|stop) systemctl "$1" waydroid-container.service ;;
+    *) echo "container takes start or stop" >&2; exit 2 ;;
+  esac
+}
+
 case "${1:-}" in
+  container) container "${2:-}" ;;
   netcheck) netcheck ;;
   houdini)  houdini "${2:?waydroid_script directory}" "${3:?Android version}" ;;
-  *) echo "usage: $0 netcheck|houdini <waydroid_script dir> <android version>" >&2; exit 2 ;;
+  *) echo "usage: $0 container start|stop|netcheck|houdini <waydroid_script dir> <android version>" >&2; exit 2 ;;
 esac

@@ -15,7 +15,9 @@ status() {
   local out session container ip booted=0
   out=$(waydroid status 2>/dev/null)
   session=$(field "$out" Session)
-  container=$(field "$out" Container)
+  # waydroid status only names the container while a session runs; systemd always knows.
+  container=STOPPED
+  systemctl is-active --quiet waydroid-container.service && container=RUNNING
   ip=$(field "$out" "IP address")
   [ "$session" = RUNNING ] && [ "$(waydroid prop get sys.boot_completed 2>/dev/null)" = 1 ] && booted=1
 

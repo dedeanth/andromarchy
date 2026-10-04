@@ -36,6 +36,8 @@ Panel {
   property bool needsRestart: false
 
   readonly property bool running: root.st.session === "RUNNING"
+  // Waydroid reports the container as STOPPED when its systemd service is down.
+  readonly property bool containerUp: root.st.container !== undefined && root.st.container !== "STOPPED"
   readonly property bool booted: running && root.st.booted === true
   readonly property bool healthy: root.st.binder !== false && root.st.ufwRules !== false && root.st.houdini !== false
     && !(net && net.reachable && !(net.network && net.dns))
@@ -90,11 +92,17 @@ Panel {
     actionProc.running = true
   }
 
+  // Opening Android needs the container; start it first (pkexec) when it is down.
+  function openAndroid() {
+    if (root.st.container === "STOPPED") runRoot(["container", "start"], "Starting the Waydroid container…")
+    else run(["show"], running ? "" : "Starting Android…")
+  }
+
   function runRoot(args, message) {
     if (rootProc.running) return
     busy = true
     if (message) say(message)
-    rootProc.mode = args[0]
+    rootProc.mode = args[0] === "container" ? "container-" + args[1] : args[0]
     rootProc.command = ["pkexec", rootBackend].concat(args)
     rootProc.running = true
   }
@@ -149,7 +157,7 @@ Panel {
     function open(): void { root.open() }
     function close(): void { root.close() }
     function toggle(): void { root.toggle() }
-    function start(): void { root.run(["show"], "Starting Android…") }
+    function start(): void { root.openAndroid() }
     function stop(): void { root.run(["stop"], "Stopping Android…") }
     function status(): string { return root.stateText }
   }
@@ -248,6 +256,12 @@ Panel {
           // pkexec exits 126 when the password window is dismissed.
           root.say(code === 126 ? "Network check cancelled" : (rootErr.text.trim() || "Network check failed"))
         }
+      } else if (mode === "container-start") {
+        if (code === 0) root.run(["show"], "Starting Android…")
+        else root.say(code === 126 ? "Container start cancelled" : (rootErr.text.trim() || "The container did not start"))
+      } else if (mode === "container-stop") {
+        if (code === 0) root.say("Waydroid container stopped")
+        else root.say(code === 126 ? "Cancelled" : (rootErr.text.trim() || "The container did not stop"))
       } else if (mode === "houdini") {
         if (code === 0) {
           root.say("libhoudini reinstalled — restart the session to load it")
@@ -292,7 +306,7 @@ Panel {
       onTextKey: function (t) {
         var key = String(t).toLowerCase()
         if (key === "r") root.refreshAll()
-        else if (key === "o") root.run(["show"], "Opening Android…")
+        else if (key === "o") root.openAndroid()
         else if (key === "s" && root.running) root.run(["stop"], "Stopping Android…")
       }
 
@@ -340,7 +354,8 @@ Panel {
               foreground: root.foreground
               fontFamily: root.fontFamily
               enabled: !root.busy
-              onClicked: root.run(["show"], root.running ? "" : "Starting Android…")
+              tooltipText: root.st.container === "STOPPED" ? "Start the Waydroid container, then Android" : ""
+              onClicked: root.openAndroid()
             }
             Button {
               text: "Stop"
@@ -366,6 +381,17 @@ Panel {
                 root.net = null
                 root.run(["restart"], "Restarting Android…")
               }
+            }
+            Button {
+              text: "Container off"
+              iconText: "󰐥"
+              bordered: true
+              visible: !root.running && root.containerUp
+              foreground: root.foreground
+              fontFamily: root.fontFamily
+              enabled: !root.busy
+              tooltipText: "Stop the Waydroid container; Open starts it again"
+              onClicked: root.runRoot(["container", "stop"], "Stopping the Waydroid container…")
             }
           }
 
