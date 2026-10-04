@@ -48,10 +48,10 @@ after a restart; the panel reminds you.
   as root, so `andromarchy-root.sh` refuses any other commit:
 
   ```bash
-  git clone https://github.com/casualsnek/waydroid_script ~/.local/share/waydroid_script
-  cd ~/.local/share/waydroid_script
-  git checkout --detach 48dbfaf34a6ddbe78688c530f9ba1c26522aafb2
-  python -m venv venv && venv/bin/pip install -r requirements.txt
+  git clone https://github.com/casualsnek/waydroid_script ~/.local/share/waydroid_script &&
+    git -C ~/.local/share/waydroid_script checkout --detach 48dbfaf34a6ddbe78688c530f9ba1c26522aafb2 &&
+    cd ~/.local/share/waydroid_script &&
+    python -m venv venv && venv/bin/pip install -r requirements.txt
   ```
 
 ## Install
